@@ -1,0 +1,35 @@
+{% extends 'shopapp/base.html' %}
+{% load cache %}
+
+{% block title %}
+    {{ owner }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ owner }}'s orders</h1>
+<!--    {% for order in object_list|slice:":1" %}-->
+<!--        <h1>{% firstof order.user.first_name order.user.username %}'s orders</h1>-->
+<!--    {% endfor %}-->
+    {% if object_list %}
+        {% cache 10 ordering owner %}
+            {% for order in object_list %}
+                <p><b>Order #{{ order.pk }}</b></p>
+                <p><b>Address:</b> {{ order.delivery_address }}</p>
+                <p><b>Products:</b></p>
+                {% for product in order.products.all %}
+                    <ul>
+                        <li>{{product.name}} for ${{product.price}}</li>
+                    </ul>
+                {% endfor %}
+                <br>
+            {% endfor %}
+            <div>
+                <p>
+                    Time now: {% now 'H:i:s' %}
+                </p>
+            </div>
+        {% endcache %}
+    {% else %}
+        <h3>User {{ owner }} has not orders yet</h3>
+    {% endif %}
+{% endblock %}
