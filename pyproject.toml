@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "mysiteapp"
+version = "0.1.0"
+description = ""
+authors = ["Alexey_R <alexeassomus1@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.4"
+djangorestframework = "^3.14.0"
+django-filter = "^23.2"
+django-debug-toolbar = "^4.2.0"
+gunicorn = "^21.2.0"
+pillow = "^10.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
